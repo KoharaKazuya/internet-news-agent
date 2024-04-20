@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "public": "build/client",
+    "ignore": [],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+.host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  background: oklch(100% 0 0);
+
+  display: grid;
+  place-content: center;
+}
+
+.icon {
+  animation: 1s ease-out fadein;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+  }
+}

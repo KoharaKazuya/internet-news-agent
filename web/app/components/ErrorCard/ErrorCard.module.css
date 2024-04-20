@@ -1,0 +1,10 @@
+.host {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  color: var(--color-text);
+}
+
+.link {
+  color: var(--color-text);
+}

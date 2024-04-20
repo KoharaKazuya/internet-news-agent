@@ -1,0 +1,15 @@
+.auth {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 32px;
+}
+
+.disclaimer {
+  width: calc(100% - 64px);
+  padding: 16px;
+  border-radius: 4px;
+
+  background: var(--color-summary-error-light);
+  color: oklch(from var(--color-summary-error-light) 20% c h);
+}

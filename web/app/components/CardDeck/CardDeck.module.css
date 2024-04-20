@@ -1,0 +1,23 @@
+.deck {
+  height: 100lvh;
+
+  isolation: isolate;
+  overflow: hidden auto;
+  scroll-snap-type: y mandatory;
+}
+
+.sleeve {
+  height: 100%;
+  position: sticky;
+  bottom: 0;
+}
+
+.anchor {
+  /* .section は position: fixed を持つので、直接 scroll-snap-align をつけても正常に動作しない (sticky で移動した後の位置にいるように計算される) */
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  /* iOS Safari だと 0px では snap scroll が無効になるため、1px の大きさを持たせる */
+  height: 1px;
+  margin-bottom: -1px;
+  pointer-events: none;
+}

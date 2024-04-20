@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@google-cloud/run": "^1.2.0",
+    "dotenv": "^16.4.5",
+    "firebase-admin": "^12.0.0"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20.12.5",
+    "tsx": "^4.7.2"
+  },
+  "scripts": {
+    "start": "tsx src/main.ts"
+  }
+}

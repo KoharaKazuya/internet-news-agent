@@ -1,0 +1,30 @@
+html {
+  --color-text: oklch(100% 0 0);
+  --color-site-background: oklch(30% 0 0);
+  --color-accent: oklch(80% 0.1 150);
+  --color-summary-error-light: oklch(90% 0.1 30);
+  --color-summary-error-dark: oklch(20% 0.1 30);
+  --color-form-background: oklch(0% 0 0);
+  --color-button-background: oklch(50% 0.1 150);
+  --color-warning-text: oklch(40% 0.1 110);
+  --color-warning-background: oklch(90% 0.1 110);
+
+  background: var(--color-site-background);
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  max-width: 480px;
+  height: 100%;
+  overflow: auto;
+  margin: 0 auto;
+}
+
+.card {
+  height: 100lvh;
+  padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0)
+    calc(env(safe-area-inset-bottom, 0) + 100lvh - 100svh)
+    env(safe-area-inset-left, 0);
+  background-color: var(--color-site-background);
+}
