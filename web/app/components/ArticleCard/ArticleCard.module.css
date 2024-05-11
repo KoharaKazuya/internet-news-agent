@@ -1,7 +1,3 @@
-.wrapper {
-  text-decoration: none;
-}
-
 .host {
   display: grid;
   grid-template-rows: auto auto 1fr;
@@ -19,6 +15,11 @@
   &.cinema::before {
     filter: brightness(50%) blur(5px);
   }
+}
+
+.wrapper {
+  display: contents;
+  text-decoration: none;
 }
 
 .top,
@@ -86,8 +87,24 @@
   padding: 16px;
   border-radius: 4px;
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.2);
-  overflow: hidden;
 
+  /* 開いているときのみスクロールする */
+  overflow: auto;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+  &:not(:focus) {
+    overflow: hidden;
+  }
+
+  /* 開閉をアニメーションする */
+  transition: top 0.2s ease-out, margin 0.2s ease-out, padding 0.2s ease-out;
+  &:focus {
+    top: calc(-1 * (176px + min(var(--card-max-width), 100dvw) / 16 * 9));
+    margin: 16px;
+    padding: 48px 32px 16px;
+  }
+
+  /* 省略表示を表すため下端をグラデーションで暗くする */
   &::after {
     content: "";
     position: absolute;
@@ -96,8 +113,16 @@
     width: 100%;
     height: 32px;
     background: linear-gradient(transparent, var(--color-canvas-default));
+
+    opacity: 1;
+    transition: opacity 0.2s ease-out;
+  }
+  &:focus::after {
+    opacity: 0;
+    pointer-events: none;
   }
 
+  /* エラーを表示するときは赤くする */
   .error & {
     background-color: var(--color-summary-error-dark);
     @media (prefers-color-scheme: light) {
@@ -115,4 +140,41 @@
       );
     }
   }
+}
+
+.summaryCloser {
+  position: absolute;
+  top: calc(-1 * (176px + min(var(--card-max-width), 100dvw) / 16 * 9) + 24px);
+  right: 24px;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 0;
+  backdrop-filter: brightness(80%) blur(5px);
+  outline: 0;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+
+  /* 開閉時にフェードアニメーションする */
+  transition: opacity 0.2s ease-out;
+  body:not(:has(.summary:focus)) & {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.linkButton {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  border: 0;
+  background: var(--color-button-background);
+  outline: 0;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
 }

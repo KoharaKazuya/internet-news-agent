@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useEffect, useState, type ReactNode } from "react";
 import { throttle } from "throttle-debounce";
 import classes from "./CardDeck.module.css";
@@ -27,7 +28,10 @@ export default function CardDeck({
   const rest = Math.max(0, count - (current + 1 + renderAfter));
 
   return (
-    <div className={classes.deck} ref={setScroller}>
+    <div
+      className={clsx(classes.deck, "lock-scroll-on-has-locker")}
+      ref={setScroller}
+    >
       <Pad size={skip} />
       {[...Array(count).keys()].slice(skip, count - rest).map((index) => (
         <CardSleeve key={index} index={index} zIndex={count - index}>

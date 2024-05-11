@@ -4,6 +4,7 @@
   isolation: isolate;
   overflow: hidden auto;
   scroll-snap-type: y mandatory;
+  scrollbar-gutter: stable;
 }
 
 .sleeve {

@@ -1,4 +1,6 @@
 html {
+  --card-max-width: 480px;
+
   --color-text: oklch(100% 0 0);
   --color-site-background: oklch(30% 0 0);
   --color-accent: oklch(80% 0.1 150);
@@ -15,7 +17,7 @@ html {
 }
 
 body {
-  max-width: 480px;
+  max-width: var(--card-max-width);
   height: 100%;
   overflow: auto;
   margin: 0 auto;
@@ -27,4 +29,8 @@ body {
     calc(env(safe-area-inset-bottom, 0) + 100lvh - 100svh)
     env(safe-area-inset-left, 0);
   background-color: var(--color-site-background);
+}
+
+.lock-scroll-on-has-locker:has(.scroll-locker:focus) {
+  overflow: hidden !important;
 }
