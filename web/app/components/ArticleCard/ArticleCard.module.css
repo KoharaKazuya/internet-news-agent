@@ -87,6 +87,7 @@
   padding: 16px;
   border-radius: 4px;
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.2);
+  isolation: isolate;
 
   /* 開いているときのみスクロールする */
   overflow: auto;
