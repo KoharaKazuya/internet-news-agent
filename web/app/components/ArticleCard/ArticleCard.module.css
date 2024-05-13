@@ -101,7 +101,7 @@
   &:focus {
     top: calc(-1 * (176px + min(var(--card-max-width), 100dvw) / 16 * 9));
     margin: 16px;
-    padding: 48px 32px 16px;
+    padding: 48px 32px;
   }
 
   /* 省略表示を表すため下端をグラデーションで暗くする */
