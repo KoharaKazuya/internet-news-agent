@@ -31,6 +31,6 @@ body {
   background-color: var(--color-site-background);
 }
 
-.lock-scroll-on-has-locker:has(.scroll-locker:focus) {
+:where(body, .lock-scroll-on-has-locker):has(.scroll-locker:focus) {
   overflow: hidden !important;
 }
