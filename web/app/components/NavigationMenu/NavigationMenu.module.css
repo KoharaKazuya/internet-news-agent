@@ -70,10 +70,65 @@
     background: rgb(255 255 255 / 0.2);
   }
 
+  &:global(.pending) {
+    animation: 3s linear loading infinite;
+  }
+
   @media (hover: hover) {
     &:hover {
       text-decoration: underline;
       text-underline-offset: 4px;
     }
+  }
+}
+
+@keyframes loading {
+  0% {
+    background: linear-gradient(
+      to right,
+      rgb(255 255 255 / 0.2),
+      transparent 0,
+      transparent
+    );
+  }
+  10% {
+    background: linear-gradient(
+      to right,
+      rgb(255 255 255 / 0.2),
+      transparent 20%,
+      transparent
+    );
+  }
+  20% {
+    background: linear-gradient(
+      to right,
+      rgb(255 255 255 / 0.2),
+      transparent 40%,
+      transparent
+    );
+  }
+  30% {
+    background: linear-gradient(
+      to right,
+      rgb(255 255 255 / 0.2),
+      transparent 60%,
+      transparent
+    );
+  }
+  50% {
+    background: linear-gradient(
+      to right,
+      rgb(255 255 255 / 0.2),
+      transparent 100%,
+      transparent
+    );
+  }
+  100% {
+    background: linear-gradient(
+      to right,
+      rgb(255 255 255 / 0.2),
+      transparent 100%,
+      transparent
+    );
   }
 }
