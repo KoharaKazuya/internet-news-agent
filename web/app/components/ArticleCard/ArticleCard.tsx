@@ -2,16 +2,13 @@ import clsx from "clsx";
 import DOMPurify from "dompurify";
 import "github-markdown-css";
 import { Marked } from "marked";
-import QuickLRU from "quick-lru";
 import { Suspense, type ReactNode } from "react";
 import LoadingCard from "~/components/LoadingCard";
 import { useArticle } from "~/queries/article";
+import { useImageAspectRatio } from "~/queries/image";
 import classes from "./ArticleCard.module.css";
 import upRightFromSquareSolid from "./up-right-from-square-solid.svg?inline";
 import xmarkSolid from "./xmark-solid.svg?inline";
-
-/** 画像読み込み待ちのタイムアウト (ms) */
-const imgLoadTimeout = 10000;
 
 const marked = new Marked();
 
@@ -43,7 +40,7 @@ function Content({ id }: Props) {
   const { data: article } = useArticle(id);
 
   const thumbnailUrl = article.meta.thumbnail;
-  const { aspectRatio } = useThumbnail(thumbnailUrl);
+  const { data: aspectRatio } = useImageAspectRatio(thumbnailUrl);
   const isCinema = aspectRatio > 16 / 9;
 
   return (
@@ -108,61 +105,4 @@ function SummaryCloser() {
 
 function markdown(source: string): string {
   return DOMPurify.sanitize(marked.parse(source) as string);
-}
-
-function useThumbnail(url: string | undefined) {
-  if (!url) return { aspectRatio: 1 };
-
-  if (!thumbnailCache.has(url)) thumbnailCache.set(url, fetchImg(url));
-
-  const img = thumbnailCache.get(url)!.read();
-  const aspectRatio = img ? img.naturalWidth / img.naturalHeight : 1;
-
-  return { aspectRatio };
-}
-
-const thumbnailCache = new QuickLRU<
-  string,
-  { read: () => HTMLImageElement | null }
->({ maxSize: 100 });
-
-function fetchImg(url: string) {
-  const imgPromise = new Promise<HTMLImageElement | null>((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = () => resolve(null);
-    img.src = url;
-  });
-  const timeoutPromise = new Promise<null>((resolve) => {
-    setTimeout(() => resolve(null), imgLoadTimeout);
-  });
-  return wrapPromise(Promise.race([imgPromise, timeoutPromise]));
-}
-
-function wrapPromise<T>(promise: Promise<T>) {
-  let status = "pending";
-  let result: T;
-
-  const suspender = promise.then(
-    (r) => {
-      status = "fulfilled";
-      result = r;
-    },
-    (e) => {
-      status = "rejected";
-      result = e;
-    }
-  );
-
-  const read = () => {
-    if (status === "pending") {
-      throw suspender;
-    } else if (status === "rejected") {
-      throw result;
-    } else {
-      return result;
-    }
-  };
-
-  return { read };
 }
