@@ -49,7 +49,7 @@ async function getMainContent(
 
   const mainLocator = page.getByRole("main");
   if ((await mainLocator.count()) > 0) {
-    raw = await mainLocator.evaluate(async (main) => {
+    raw = await mainLocator.first().evaluate(async (main) => {
       return {
         html: main.innerHTML,
         text: main.textContent ?? "",
